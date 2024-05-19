@@ -1,4 +1,4 @@
 /* eslint-disable prettier/prettier */
 export default {
-    host : ""
+    host : 'mongodb+srv://Deobaba:Baba1996@cluster0.tizislk.mongodb.net/'
 }

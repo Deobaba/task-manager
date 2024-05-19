@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import config from './config/db'
 
 @Module({
-  imports: [UserModule, TaskModule, MongooseModule.forRoot('')],
+  imports: [UserModule, TaskModule, MongooseModule.forRoot(config.host)],
   controllers: [AppController],
   providers: [AppService],
 })

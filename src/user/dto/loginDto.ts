@@ -1,15 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
-export class CreateTaskDto {
 
-    @IsString()
-    @IsNotEmpty()
-    title: string
-
-    @IsString()
-    @IsNotEmpty()
-    description: string
-
+export class LoginDto {
     @IsEmail()
     @IsNotEmpty()
     readonly email: string;

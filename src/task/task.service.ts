@@ -1,11 +1,20 @@
+/* eslint-disable prettier/prettier */
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+// import { TaskSchema } from './schema/task.schema';
+import {Task} from './interface/task.interface'
 
 @Injectable()
 export class TaskService {
+
+  constructor(@InjectModel('Task') private taskModel: Model<Task>){}
+
+  
   create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+    return this.taskModel.create(createTaskDto)
   }
 
   findAll() {
@@ -17,7 +26,7 @@ export class TaskService {
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+    return this.taskModel.findByIdAndUpdate(id,updateTaskDto)
   }
 
   remove(id: number) {
