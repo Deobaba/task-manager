@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
+import { Module,  NestModule, MiddlewareConsumer} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthMiddleware } from './Middleware/Auth.middleware';
 import config from './config/db'
 
 @Module({
@@ -12,4 +13,10 @@ import config from './config/db'
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes('task');
+  }
+}

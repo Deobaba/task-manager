@@ -5,10 +5,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {verifyPassword} from '../utils/passwordUtils'
 import { LoginDto } from './dto/loginDto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private jwtService: JwtService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -47,6 +48,14 @@ export class UserController {
 
     if(!isMatch){
       return {message: 'Invalid credentials'}
+    }
+
+
+    const payload = {email: user.email, id: user.id, name:user.name}
+
+    return {
+      token: this.jwtService.sign(payload),
+      message: 'login successful'
     }
 
 

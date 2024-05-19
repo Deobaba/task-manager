@@ -21,15 +21,15 @@ export class TaskService {
     return `This action returns all task`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: string) {
+    return this.taskModel.findById(id);
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {
     return this.taskModel.findByIdAndUpdate(id,updateTaskDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: string) {
+    return this.taskModel.findByIdAndDelete(id);
   }
 }
