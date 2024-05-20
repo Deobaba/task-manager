@@ -4,6 +4,7 @@ import { UserService } from '../user/user.service';
 import {LoginDto} from './dto/loginDto'
 import {verifyPassword} from '../utils/passwordUtils'
 import { JwtService } from '@nestjs/jwt';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,4 +30,11 @@ export class AuthService {
       message: 'login successful'
     }
   }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<any>  {
+    return await this.usersService.update(id, updateUserDto)
+  }
+
+ 
+
 }
