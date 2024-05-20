@@ -16,22 +16,22 @@ export class UserService {
   }
 
   async findAll():Promise<User[] | User> {
-    return this.userModel.find()
+    return await this.userModel.find()
   }
 
-  findOne(id: string): Promise<User> {
-    return this.userModel.findById(id)
+ async  findOne(id: string): Promise<User> {
+    return await this.userModel.findById(id)
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User>  {
     return await this.userModel.findByIdAndUpdate(id, updateUserDto)
   }
 
-  remove(id: number) {
-    return this.userModel.findByIdAndDelete(id)
+  async remove(id: number) {
+    return await this.userModel.findByIdAndDelete(id)
   }
 
-  findUserByEmail(email:string) {
-    return this.userModel.findOne({email})
+  async findUserByEmail(email:string) {
+    return await this.userModel.findOne({email})
   }
 }
