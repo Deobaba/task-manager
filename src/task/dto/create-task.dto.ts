@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {  IsNotEmpty, IsString , IsBoolean} from "class-validator";
+import {  IsNotEmpty, IsString } from "class-validator";
 export class CreateTaskDto {
 
     @IsString()
@@ -10,12 +10,6 @@ export class CreateTaskDto {
     @IsNotEmpty()
     description: string
 
-    @IsBoolean()
-    @IsNotEmpty()
-    readonly done: boolean;
-
-    @IsNotEmpty()
-    user: string
 
 
 }

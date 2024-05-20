@@ -12,7 +12,7 @@ export class UserService {
   constructor(@InjectModel('User') private userModel: Model<User>){}
 
  async create(createUserDto: CreateUserDto): Promise <User> {
-    return this.userModel.create(createUserDto)
+    return  await this.userModel.create(createUserDto)
   }
 
   async findAll():Promise<User[] | User> {
@@ -23,8 +23,8 @@ export class UserService {
     return this.userModel.findById(id)
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): Promise<User>  {
-    return this.userModel.findByIdAndUpdate(id, updateUserDto)
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User>  {
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto)
   }
 
   remove(id: number) {
