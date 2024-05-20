@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -28,8 +29,27 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.authService.update(id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @Request() req) {
+    const userid = req.user.id 
+    const user = await this.authService.findOne(id)
+    if (user.id !== userid) {
+      return {message: 'You are not authorized to update this user'}
+    }
+    return await this.authService.update(id, updateUserDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  async remove(@Param('id') id: string, @Request() req) {
+    const userid = req.user.id 
+    const user = await this.authService.findOne(id)
+    if(!user){
+      return {message: 'User not found'}
+    }
+    if (user.id !== userid) {
+      return {message: 'You are not authorized to delete this user'}
+    }
+    return await this.authService.remove(id);
   }
 
 

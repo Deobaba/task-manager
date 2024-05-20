@@ -35,6 +35,15 @@ export class AuthService {
     return await this.usersService.update(id, updateUserDto)
   }
 
+  async remove(id: string) {
+    return await this.usersService.remove(id)
+  }
+
+  async  findOne(id: string): Promise<any> {
+    return await this.usersService.findOne(id)
+  }
+
+
  
 
 }

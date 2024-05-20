@@ -77,4 +77,20 @@ export class TaskController {
     
     return await this.taskService.remove(id);
   }
+
+  @Get('task-done/:id')
+  async taskDone (@Param('id') id: string, @Request() req) {
+    const userId = req.user.id
+    const task = await this.taskService.findOne(id)
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+    if (task.user.toString() !== userId) {
+      throw new ForbiddenException('You are not allowed to update this task');
+    }
+    
+    return await this.taskService.taskDone(id)
+  }
+
+
 }

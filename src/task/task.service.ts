@@ -38,6 +38,14 @@ export class TaskService {
     return await this.taskModel.findByIdAndDelete(id)
   }
 
+async taskDone (id:string): Promise<Task> {
 
+  const task = await this.taskModel.findById(id)
+
+  task.done = true
+  task.save()
+
+  return task
+}
 
 }
